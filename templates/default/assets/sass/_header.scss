@@ -1,0 +1,20 @@
+/*
+    Created on : 11 de jun de 2022, 00:40:00
+    Author     : angelo
+*/
+
+// header
+.header {
+    clear: both;
+    height: 100px;
+    background-color: $squidsColor;
+}
+
+.header-logo {
+    line-height: 100px;
+}
+
+.header-logo, img {
+    max-height: 90px;
+}
+
