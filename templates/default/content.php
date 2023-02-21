@@ -1,5 +1,5 @@
 <!-- content -->
-    <main class="w3-col w3-right content" style="width:80%">
+    <main class="w3-col m10 content">
         <!-- addthis app include -->
         <div class="addthis_sharing_toolbox content-addThis"></div>
         <br/>

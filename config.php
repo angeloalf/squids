@@ -6,7 +6,7 @@ if (ENVIRONMENT == 'development') {
     define("BASE_URL", "http://squids/");
     define("TEMPLATE", "default");
     
-    define("DBNAME", "projetos_php");
+    define("DBNAME", "squids");
     define("HOST", "localhost");
     define("USER", "root");
     define("PASS", "");

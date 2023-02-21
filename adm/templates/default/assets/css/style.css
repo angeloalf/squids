@@ -1,0 +1,74 @@
+/* general */
+a {
+    text-decoration: none;
+}
+
+/* sidebar */
+.sidebar {
+    padding: 10px;
+    height: inherit;
+}
+.sidebar-block {
+    margin-top: 10px;
+}
+.sidebar-block-title {
+    font-weight: bold;
+}
+
+/* content */
+.mainContent {
+    margin-top: 0px;
+    min-height: 785px; 
+    border-left: 1px solid #ccc;
+    padding-left: 15px;
+    padding-right: 15px    
+}
+
+/* pages */
+.pageTitle {
+    font-size: 30px;
+    padding-top: 10px;
+    margin-bottom: 20px;
+}
+
+/* tabel of categories */
+.cagoriesTable {
+    padding-top: 35px;
+}
+
+/* login */
+.loginBox {
+    margin-top: 25px;
+}
+.submitButton {
+    margin-top: 25px;
+}
+
+/* artistsData */
+.artistBlock {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+.submitButtonArtists {
+    margin-top: 25px;
+    margin-bottom: 20px;
+}
+.footer {
+    min-height: 100px;
+    background-color: #9E9E9E;
+}
+
+/* album editor */
+.albumsForm input {
+    margin-bottom: 8px;
+    color: purple;
+}
+
+/* aprove blog page */
+a:hover {
+    color: red;
+}
+
+button{
+    margin-left: 15px;
+}    

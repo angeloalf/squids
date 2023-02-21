@@ -2,13 +2,9 @@
 
 class homeController extends Controller {
     public function index() {
-        $anuncios = new Anuncios();
-        $users = new Users; 
-        $dados = array(
-            'quantidade'=> $anuncios->getQuantidades(),
-            'nome' => $users->getName()
-        );
-        $this->loadTemplate('home', $dados);
+        $data = array();
+        
+        $this->loadTemplate('home', $data);
     }
     
     public function login() {
