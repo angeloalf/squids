@@ -3,12 +3,18 @@
 class Categories extends Model {
     
     // CREATE
-    public function categoriesData($categoryName, $alias) {
+    public function categoriesData($categoryName, $alias, $key) {
         if (!$this->categoriesExists($alias)) {
-            $sql = "INSERT INTO categories (category_name, category_alias) VALUES (?, ?)";
+            $sql = "INSERT INTO categories (category_name, category_alias, key_word) VALUES (?, ?, ?)";
             $sql = $this->con->prepare($sql);
-            $sql->execute(array($categoryName, $alias));  
+            $sql->execute(array($categoryName, $alias, $key));  
         }
+    }
+    
+    // UPDATE
+    public function setCategoryEdit($categoryName, $alias, $key, $id) {
+      $sql = "UPDATE categories SET category_name = '$categoryName', category_alias = '$alias', key_word = '$key' WHERE id = '$id'";
+      $sql = $this->con->query($sql);
     }
     
     // READ
@@ -21,6 +27,15 @@ class Categories extends Model {
         } else return array();
     }
     
+    // get all category by key word
+        public function getCategotyByKeyWord($key) {
+        $sql = "SELECT * FROM categories WHERE key_word ='$key'";
+        $sql = $this->con->query($sql);
+        if ($sql->rowCount()>0) {
+            return $sql->fetchAll(PDO::FETCH_ASSOC);
+        } else return null;
+    }
+    
     // get category name by id
     public function getCategoryNameById($id) {
         $sql = "SELECT category_name FROM categories WHERE id ='$id'";
@@ -29,6 +44,15 @@ class Categories extends Model {
             return $sql->fetch(PDO::FETCH_ASSOC)['category_name'];
         } else return null;
     }
+    
+    // get key word by id
+    public function getKeyWordById($id) {
+        $sql = "SELECT key_word FROM categories WHERE id ='$id'";
+        $sql = $this->con->query($sql);
+        if ($sql->rowCount()>0) {
+            return $sql->fetch(PDO::FETCH_ASSOC)['key_word'];
+        } else return null;
+    }    
         
     // verification
     private function categoriesExists($alias) {

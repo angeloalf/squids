@@ -32,6 +32,7 @@ class postController extends Controller {
         // create instances
         $content = new Content();
         $cat = new Categories();
+        $k = new KeyWord();
         
         // category item verification
         $categoryId = filter_input(INPUT_GET, 'cat', FILTER_VALIDATE_INT);                
@@ -52,10 +53,14 @@ class postController extends Controller {
         // get all categories
         $categories = $cat->getDataAllCategories();
         
+        // get all key words for categories classification
+        $keyWord = $k->getAllKeyWord();
+        
         // data to send
         $data['postList'] = $postList;
         $data['trash'] = $trash;
         $data['categories'] = $categories;
+        $data['keyWord'] = $keyWord;
                 
         $this->loadTemplate('posts', $data);        
     }
@@ -122,7 +127,7 @@ class postController extends Controller {
         $this->loadTemplate('post', $data);        
     }
 
-    // EDIT especific post (content)
+// EDIT especific post (content)
     public function edit($contentId, $titleAlias) {
        $data = array();
 

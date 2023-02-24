@@ -5,22 +5,32 @@
 <button class="w3-btn w3-light-gray w3-large w3-border" onclick="location.href='<?=BASE_URL?>/categories'">Categorias (+)</button>
 <br/><br/>
  <div class="w3-dropdown-hover">
-  <button class="w3-light-gray w3-button">Categorias</button>
-  <div class="w3-dropdown-content w3-bar-block w3-border">
-        <?php 
-        foreach ($categories as $category) {
-            ?><a style="width:300px;" href="<?=BASE_URL?>/post?cat=<?=$category['id']?>" class="w3-bar-item w3-button"><?=$category['category_name']?></a><?php
-        }
+  <button class="w3-light-gray w3-button">Por Categoria</button>
+  <div class="w3-dropdown-content w3-bar-block w3-border"> 
+        <?php
+        // create instances
+        $c = new Categories();
+        foreach ($keyWord as $key) {
+            $categories = $c->getCategotyByKeyWord($key['key_word_name']);            
+            if ($categories) {
+                foreach ($categories as $category) {
+                    ?><a style="width:300px;" class="w3-bar-item w3-button" href="<?=BASE_URL?>/post?cat=<?=$category['id']?>" ><?=$category['category_name']?></a><?php
+                }
+           ?><div style="margin-top: -20px; margin-bottom: -20px;"><hr/></div><?php     
+            }    
+        }   
         ?>
+            
+            <a style="width:300px; margin-top: -20px" class="w3-bar-item w3-button" href="<?=BASE_URL?>/post">Todas Categorias</a>
   </div>
 </div> 
 
  <div class="w3-light-gray w3-dropdown-hover">
-  <button class="w3-button">Categorias</button>
+  <button class="w3-button">Por Estado</button>
   <div class="w3-dropdown-content w3-bar-block w3-border">
-    <a href="#" class="w3-bar-item w3-button">Link 1</a>
-    <a href="#" class="w3-bar-item w3-button">Link 2</a>
-    <a href="#" class="w3-bar-item w3-button">Link 3</a>
+    <a href="#" class="w3-bar-item w3-button">Publicado</a>
+    <a href="#" class="w3-bar-item w3-button">Não Publicado</a> 
+    <a href="#" class="w3-bar-item w3-button">Lixeira</a>  
   </div>
 </div> 
 <br/><br/>
@@ -54,7 +64,7 @@
         <td>
         <a href="<?=BASE_URL?>/post/edit/<?=$post['id']?>/<?=$post['title_alias']?>"><?=$post['title'];?></a>
         <br/>
-        <span style="font-size: 10px">Categoria: <?=$cat->getCategoryNameById($post['category_id'])?></span>
+        <span style="font-size: 10px"><?=$cat->getKeyWordById($post['category_id'])?> | <?=$cat->getCategoryNameById($post['category_id'])?></span>        
         </td>        
         <td class="w3-center">
             <a style="cursor:pointer" title='<?=$title?>' onclick="trash('<?=$post['id']?>','<?=$post['title_alias']?>','<?=$post['trash']?>')">
@@ -80,10 +90,6 @@
       } else {
           window.location.href=link 
       }
-      
-      
-      
-    }
-    
+    }   
 </script>
 

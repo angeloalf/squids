@@ -13,7 +13,9 @@ spl_autoload_register(function($class) {
         require __DIR__.'/models/'.$class.'.php';
     } elseif (file_exists('core/'.$class.'.php')) {
         require __DIR__.'/core/'.$class.'.php';
-    }  
+    } elseif (file_exists('helpers/'.$class.'.php')) {
+        require __DIR__.'/helpers/'.$class.'.php';
+    }    
 });
 
 $core = new Core();
