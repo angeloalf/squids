@@ -1,7 +1,7 @@
 <!-- post list by category -->
 <h1><?=$categoryName?></h1>
 
-<table>
+<table class="w3-table-all">
     <tr>
         <th>Título</th>
         <th>Acessos</th>
@@ -13,5 +13,5 @@
             <td><a href="<?=BASE_URL?>post/article/<?=$categoryAlias?>/<?=$article['title_alias']?>"><?=$article['title'];?></a></td>
             <td><?=$article['views'];?></td>
         </tr>
-    <?php } ?>  
+    <?php } ?>
 </table>

@@ -3,7 +3,7 @@
     <aside class="w3-col m2 sidebar">
         <!-- ************ menu all pages -->
         <div class="w3-container">
-            <div class="w3-bar-block w3-border">
+            <div class="w3-bar-block w3-border w3-white">
                     <span class="w3-bar-item sidebar-menu-title">Eletronica</span>
                     <a href='<?php BASE_URL; ?>/eletronica-basica' class="w3-bar-item w3-button"> Eletrônica básica</a>
                     <a href='<?php BASE_URL; ?>topCanais' class="w3-bar-item w3-button"> Circuitos elétricos</a>

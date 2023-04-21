@@ -6,15 +6,15 @@
 // header
 .header {
     clear: both;
-    height: 100px;
+    height: 110px;
     background-color: $squidsColor;
 }
 
 .header-logo {
-    line-height: 100px;
+    line-height: 110px;
 }
 
-.header-logo, img {
-    max-height: 90px;
+.header-logo img {
+    max-height: 100px;
 }
 

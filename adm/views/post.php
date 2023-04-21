@@ -53,13 +53,20 @@ if (isset($info)) {
     tinymce.init({
       selector: 'textarea',
       plugins: 'a11ychecker advcode casechange export formatpainter image editimage linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tableofcontents tinycomments tinymcespellchecker emoticons charmap link unlink preview  importcss codesample',
-      toolbar: 'undo redo | bold italic underline strikethrough | align codesample |  blocks fontfamily fontsize | numlist bullist | indent outdent | emoticons charmap | link unlink | image editimage permanentpen table tableofcontents preview',
+      toolbar: 'undo redo | bold italic underline strikethrough | align codesample |  blocks fontfamily fontsize | numlist bullist | indent outdent | emoticons charmap | link unlink | image editimage | permanentpen table tableofcontents preview',
       toolbar_mode: 'floating',
       tinycomments_mode: 'embedded',
       tinycomments_author: 'Angelo Luis Ferreira',
       content_css: '<?=BASE_URL?>/templates/default/assets/css/w3.css',
       language: "pt_Br",
-      emoticons_database: 'emojiimages'
+      emoticons_database: 'emojiimages',
+      automatic_uploads: true,
+      images_upload_url: 'postAcceptor.php',
+      images_upload_credentials: false,
+      a11y_advanced_options: true,
+      image_title: true,
+      object_resizing: 'img',
+      resize_img_proportional: true,     
     });
   </script>
   

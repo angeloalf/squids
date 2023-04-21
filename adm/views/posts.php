@@ -1,5 +1,5 @@
 <!-- posts list or trahs post list -->
-<?= $trash == 'yes' ? '<h1>Lixeira</h1>' :  '<h1>Artigos</h1>';?>
+<?= $trash == 'yes' ? '<h1>Artigos - '.$title.'</h1>' :  '<h1>Artigos - '.$title.'</h1>';?>
 
 <button class="w3-btn w3-green w3-large" onclick="location.href='<?=BASE_URL?>/post/add'">Novo Artigo (+)</button>
 <button class="w3-btn w3-light-gray w3-large w3-border" onclick="location.href='<?=BASE_URL?>/categories'">Categorias (+)</button>
@@ -28,11 +28,23 @@
  <div class="w3-light-gray w3-dropdown-hover">
   <button class="w3-button">Por Estado</button>
   <div class="w3-dropdown-content w3-bar-block w3-border">
-    <a href="#" class="w3-bar-item w3-button">Publicado</a>
-    <a href="#" class="w3-bar-item w3-button">Não Publicado</a> 
-    <a href="#" class="w3-bar-item w3-button">Lixeira</a>  
+    <a href="<?=BASE_URL?>/post?pub=published" class="w3-bar-item w3-button">Publicado</a>
+    <a href="<?=BASE_URL?>/post?pub=wating"" class="w3-bar-item w3-button">Não Publicado</a> 
+    <a href="<?=BASE_URL?>/post?trash=yes" class="w3-bar-item w3-button">Lixeira</a>  
   </div>
-</div> 
+</div>
+<div class="w3-dropdown-hover w3-right">
+  <button >Itens por página</button>
+  <div class="w3-dropdown-content w3-bar-block w3-border">
+    <a href="<?=BASE_URL?>/post/setPostPage/5" class="w3-bar-item w3-button">5</a>
+    <a href="<?=BASE_URL?>/post/setPostPage/10" class="w3-bar-item w3-button">10</a>
+    <a href="<?=BASE_URL?>/post/setPostPage/20" class="w3-bar-item w3-button">20</a>
+    <a href="<?=BASE_URL?>/post/setPostPage/30" class="w3-bar-item w3-button">30</a>
+    <a href="<?=BASE_URL?>/post/setPostPage/50" class="w3-bar-item w3-button">50</a>
+    <a href="<?=BASE_URL?>/post/setPostPage/9999" class="w3-bar-item w3-button">Tudo</a> 
+  </div>
+  <input style="width: 35px; text-align:center" type="text" placeholder="<?=$nPosts?>">
+</div>
 <br/><br/>
 <table class="w3-table-all">
     <thead>
@@ -55,16 +67,17 @@
            $icon = "&#xf2ed";
            $fontSize = "15px";
         } else {
-            $title = "Voltar para posts ativos"; 
+           $title = "Voltar para posts ativos"; 
            $icon ="&#xf35b";
            $fontSize = "20px";
         }
        ?>
     <tr>
         <td>
-        <a href="<?=BASE_URL?>/post/edit/<?=$post['id']?>/<?=$post['title_alias']?>"><?=$post['title'];?></a>
-        <br/>
-        <span style="font-size: 10px"><?=$cat->getKeyWordById($post['category_id'])?> | <?=$cat->getCategoryNameById($post['category_id'])?></span>        
+        <a href="<?=BASE_URL?>/post/edit/<?=$post['id']?>/<?=$post['title_alias']?>"><?=$post['title'];?></a>        
+        <div style="margin-top: 0px; margin-bottom: 3px;">
+            <span style="font-size: 10px"><?=$cat->getKeyWordById($post['category_id'])?> | <?=$cat->getCategoryNameById($post['category_id'])?></span>
+        </div>
         </td>        
         <td class="w3-center">
             <a style="cursor:pointer" title='<?=$title?>' onclick="trash('<?=$post['id']?>','<?=$post['title_alias']?>','<?=$post['trash']?>')">
@@ -79,8 +92,23 @@
     }
     ?>        
 </table>
-
+<br/><br/>
+<?php
+// PAGES NAVEGATION ***************************************************    
+    if ($amountPages >1) {
+        
+        ?>
+        <div style="margin-bottom: 30px;" class="w3-center w3-bar">
+            <a href="<?=$link?>&p=<?=$minus?>" class="w3-button w3-light-grey" href=""><h5>&#10094; </h5></a>
+            <span style="font-size: 15px; vertical-align: -3px;font-weight: bold;"><?=$page." / ".$amountPages; ?></span>
+            <a href="<?=$link?>&p=<?=$plus?>" class="w3-button w3-light-gray" href=""><h5>&#10095; </h5></a>
+        </div>
+        <?php 
+    }
+    // end pagination **********************************************************      
+?>
 <script>
+    // trash post page function
     function trash(id, alias, trash) {
         const link = '<?=BASE_URL?>/post/trash/'+id+'/'+alias
       if (trash == 'no') {

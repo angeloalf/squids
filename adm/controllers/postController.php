@@ -33,34 +33,105 @@ class postController extends Controller {
         $content = new Content();
         $cat = new Categories();
         $k = new KeyWord();
+        $adm = new Administrators();
         
-        // category item verification
-        $categoryId = filter_input(INPUT_GET, 'cat', FILTER_VALIDATE_INT);                
+        // set initial variables
+        $title = "Todas Categorias";
+        $link = BASE_URL.'/post?';
+
+        // *********** PAGINATION *******************************************************************
+        // 
+         $page = filter_input(INPUT_GET, 'p', FILTER_VALIDATE_INT);  // get current page       
+         if (!isset($page)) $page = 1;
+        
+        //pagination - posts's number per page
+        $nPosts = $adm->getPostPages($_SESSION['rlogin']);                 
+        
+        $page = intval($page);
+        
+        // avoid continuing if $page = 0 
+        if ($page <=0) {           
+            header("Location: ".BASE_URL.'posts');
+        }       
+       
+        // initial page calculate
+        $pageInitial = ($page -1) * $nPosts;         
+        
+        //********************************************************************************************
+        
+        // get category ID from GET reques
+        $categoryId = filter_input(INPUT_GET, 'cat', FILTER_VALIDATE_INT);
+        
+        // get state from GET request
+        $published = filter_input(INPUT_GET,'pub',FILTER_SANITIZE_SPECIAL_CHARS);
             
         // trash list verification
-        $trash = filter_input(INPUT_GET, 'trash', FILTER_SANITIZE_SPECIAL_CHARS);
+        $trash = filter_input(INPUT_GET, 'trash', FILTER_SANITIZE_SPECIAL_CHARS);       
         
+        // verification and post list
         if (isset($trash) AND $trash == 'yes') {            
-            // get trash posts
+            // get trash posts                      
             $postList = $content->getTrashContent(); 
-        } else if (!$trash) {            
-           // get all posts
-           $categoryId ? $postList = $content->getAllContentById($categoryId) : $postList = $content->getAllContent();  
+            $allPosts = count($postList); // total posts 
+            $title = "Lixeira";
+            $link =  BASE_URL.'/post?trash=yes&';
+        } else if (!$trash && ($published == 'published' || $published == 'wating')) {
+            // get all posts
+            $allPosts = $content->countAllContentByState($published); // total posts by published
+            if ($nPosts == 9999) $nPosts = $allPosts; // when selected all posts
+            $postList = $content->getAllContentByState($published,$pageInitial, $nPosts);            
+            $published == 'published' ? $title = "Publicados" : $title = "Não Publicados";
+            $link =  BASE_URL.'/post?pub='.$published;
+       } else if (!$trash && !$published) {            
+           // get all posts or posts of each category | get title by category or all categories
+           $categoryId ? $allPosts = $content->countAllContentByCategory($categoryId) : $allPosts = $content->countAllContent();
+           if ($nPosts == 9999) $nPosts = $allPosts; // when selected all posts
+           $categoryId ? $postList = $content->getAllContentById($categoryId,$pageInitial, $nPosts) : $postList = $content->getAllContent($pageInitial, $nPosts);
+           $categoryId ?  $title = $cat->getCategoryNameById($categoryId). ' ('.$cat->getKeyWordById($categoryId).')' : $title = 'Todas Categorias';           
+           $categoryId ? $link =  BASE_URL.'/post?cat='.$categoryId : $link = BASE_URL.'/post'; 
         } else {
            header('Location: '.BASE_URL.'/post'); 
-        }        
-        
+        }                
+                
         // get all categories
         $categories = $cat->getDataAllCategories();
         
         // get all key words for categories classification
         $keyWord = $k->getAllKeyWord();
         
+        // *********************************************************************
+        // navegation
+        // amount of pages calcuate
+        if ($allPosts == 0) $allPosts = 1; 
+        if ($nPosts == 0) $nPosts = 1;
+        $amountPages = ceil($allPosts/$nPosts); // round to more
+        
+        // avoid continuing if $page > total de páginas 
+        if ($page >$amountPages) header("Location: ".BASE_URL.'posts');
+               
+        // page navegation
+        $plus = $page + 1;             
+        if ($plus-1 >= $amountPages) {
+            $plus =  $amountPages;
+        }                                   
+        if ($page>1) {$minus=$page-1;}
+        else {$minus = 1;}
+         // *********************************************************************
+        
         // data to send
         $data['postList'] = $postList;
         $data['trash'] = $trash;
         $data['categories'] = $categories;
         $data['keyWord'] = $keyWord;
+        $data['title'] = $title;
+        $data['link'] = $link;
+        
+        $data['page'] = $page;
+        $data['allPosts'] = $allPosts;
+        $data['nPosts'] = $nPosts;
+        $data['amountPages'] = $amountPages;
+        $data['plus'] =  $plus;
+        $data['minus'] =  $minus;
                 
         $this->loadTemplate('posts', $data);        
     }
@@ -210,7 +281,7 @@ class postController extends Controller {
     }
     
  // TRASH especific post to trash (content)
-  public function trash($contentId, $titleAlias) {
+    public function trash($contentId, $titleAlias) {
         // create instances
         $c = new Content();
         
@@ -224,5 +295,23 @@ class postController extends Controller {
         
         header('Location: '.BASE_URL.'/post');
   }
+  
+// SET NUMBER DE POST PER PAGE
+   public function setPostPage($posts) {
+       // create new instances
+       $adm = new Administrators();              
+       
+       // set posts by page
+       $adm->setPostsByPage($_SESSION['rlogin'], $posts);
+                 
+       // go back to previous page
+       $fallback = BASE_URL.'/'.post;
+       $previous = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : $fallback;       
+       // delete "p="
+       $previous = str_replace("p=", "", $previous);             
+       header("location: {$previous}");
+       exit;
+      
+   }
     
 } // end class

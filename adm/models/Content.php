@@ -26,26 +26,57 @@ class Content extends Model {
         $sql = $this->con->query($sql);
     }
         
-    
     // READ
-    // get all posts 
-    public function getAllContent() {
-       $sql = "SELECT * FROM content WHERE trash = 'no' ORDER BY created DESC";
+    // get all posts per page
+    public function getAllContent($pageInitial, $nPosts) {
+       $sql = "SELECT * FROM content WHERE trash = 'no' ORDER BY created DESC LIMIT $pageInitial, $nPosts";
        $sql = $this->con->query($sql);
        if ($sql->rowCount()>0) {
            return $sql->fetchAll(PDO::FETCH_ASSOC);
        } else return array();
     }
     
-    // get data for all categories
-    public function getAllContentById($categoryId) {
-        $sql = "SELECT * FROM content WHERE trash = 'no' AND category_id = '$categoryId' ORDER BY created DESC";
+    // count all posts
+    public function countAllContent() {
+        $sql = "SELECT count(*) as t FROM content";
+        $sql = $this->con->query($sql);        
+        $sql = $sql->fetch(PDO::FETCH_ASSOC);
+        return $sql['t'];
+    }
+    
+    // get for all post by categories
+    public function getAllContentById($categoryId,$pageInitial, $nPosts) {
+        $sql = "SELECT * FROM content WHERE trash = 'no' AND category_id = '$categoryId' ORDER BY created DESC LIMIT $pageInitial, $nPosts";
         $sql = $this->con->query($sql);
         if ($sql->rowCount()>0) {
            return $sql->fetchAll(PDO::FETCH_ASSOC); 
         } else return array();
     }
     
+    // count all posts by category
+    public function countAllContentByCategory($categoryId) {
+        $sql = "SELECT count(*) as t FROM content WHERE trash = 'no' AND category_id = '$categoryId'";
+        $sql = $this->con->query($sql);        
+        $sql = $sql->fetch(PDO::FETCH_ASSOC);
+        return $sql['t'];
+    }
+    
+    // get for all post by state
+    public function getAllContentByState($published,$pageInitial, $nPosts) {
+        $sql = "SELECT * FROM content WHERE trash = 'no' AND state = '$published' ORDER BY created DESC LIMIT $pageInitial, $nPosts";
+        $sql = $this->con->query($sql);
+        if ($sql->rowCount()>0) {
+           return $sql->fetchAll(PDO::FETCH_ASSOC); 
+        } else return array();
+    }
+    
+    // count all posts by state
+    public function countAllContentByState($published) {
+        $sql = "SELECT count(*) as t FROM content WHERE trash = 'no' AND state = '$published'";
+        $sql = $this->con->query($sql);        
+        $sql = $sql->fetch(PDO::FETCH_ASSOC);
+        return $sql['t'];
+    }
     
     // get trash posts 
     public function getTrashContent() {
