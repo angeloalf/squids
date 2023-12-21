@@ -38,6 +38,7 @@ class postController extends Controller {
         // set initial variables
         $title = "Todas Categorias";
         $link = BASE_URL.'/post?';
+        $allPostLabel = null;
 
         // *********** PAGINATION *******************************************************************
         // 
@@ -78,14 +79,20 @@ class postController extends Controller {
         } else if (!$trash && ($published == 'published' || $published == 'wating')) {
             // get all posts
             $allPosts = $content->countAllContentByState($published); // total posts by published
-            if ($nPosts == 9999) $nPosts = $allPosts; // when selected all posts
+            if ($nPosts == 9999) {
+                $nPosts = $allPosts; // when selected all posts
+               $allPostLabel = "Todos";
+           }                
             $postList = $content->getAllContentByState($published,$pageInitial, $nPosts);            
             $published == 'published' ? $title = "Publicados" : $title = "Não Publicados";
             $link =  BASE_URL.'/post?pub='.$published;
        } else if (!$trash && !$published) {            
            // get all posts or posts of each category | get title by category or all categories
            $categoryId ? $allPosts = $content->countAllContentByCategory($categoryId) : $allPosts = $content->countAllContent();
-           if ($nPosts == 9999) $nPosts = $allPosts; // when selected all posts
+           if ($nPosts == 9999) {
+               $nPosts = $allPosts; // when selected all posts
+               $allPostLabel = "Todos";
+           }    
            $categoryId ? $postList = $content->getAllContentById($categoryId,$pageInitial, $nPosts) : $postList = $content->getAllContent($pageInitial, $nPosts);
            $categoryId ?  $title = $cat->getCategoryNameById($categoryId). ' ('.$cat->getKeyWordById($categoryId).')' : $title = 'Todas Categorias';           
            $categoryId ? $link =  BASE_URL.'/post?cat='.$categoryId : $link = BASE_URL.'/post'; 
@@ -117,6 +124,9 @@ class postController extends Controller {
         if ($page>1) {$minus=$page-1;}
         else {$minus = 1;}
          // *********************************************************************
+        
+        // change nPost if post_by_page = all posts label
+        if ($allPostLabel) $nPosts = "Todos";
         
         // data to send
         $data['postList'] = $postList;
@@ -173,11 +183,13 @@ class postController extends Controller {
         if ($title) {           
            $cont->createContent($state, $author, $title, $titleAlias, $content, $metaDescription, $categoryId);
            // get post id from MySql table by $titleAlias
-           $contentId = $cont->getIdByTitleAlias($titleAlias);                     
+           $contentId = $cont->getIdByTitleAlias($titleAlias);
            // redirect to post edition (post/edit/...) / new=y para chamar info           
            header('Location: '.BASE_URL.'/post/edit/'.$contentId.'/'.$titleAlias.'?saved=y');
            die();
-        }
+        }        
+                        
+        
         // --------------------------------------------------------------------------
         // get categories data
         $categories = $c->getDataAllCategories();              
@@ -262,7 +274,8 @@ class postController extends Controller {
                header('Location: '.BASE_URL.'/post/edit/'.$contentId.'/'.$titleAlias.'?saved=y'); 
                die(); 
             }
-        }                    
+        }         
+        
         // ------------------------------------------------------------------------------        
         // data to send
         $data['contentData'] = $contentData;

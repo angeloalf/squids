@@ -8,8 +8,10 @@
         <link rel="stylesheet" href="<?= BASE_URL; ?>/templates/<?= TEMPLATE; ?>/assets/css/style.css" />                
         <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' crossorigin='anonymous' /> 
         <script type="text/javascript" src="<?= BASE_URL; ?>/templates/<?= TEMPLATE; ?>/assets/js/script.js"></script>
-        <script src="<?= BASE_URL; ?>/templates/<?= TEMPLATE; ?>/assets/tinymce/tinymce.min"></script>
-        
+        <script src="<?= BASE_URL; ?>/templates/<?= TEMPLATE; ?>/assets/tinymce/tinymce.min.js"></script>
+      
+
+
     </head>
     
     <body>

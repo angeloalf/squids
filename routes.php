@@ -2,10 +2,16 @@
 global $routes;
 $routes = array();
 
-//create routes
-$routes['/galeria/{alias}'] = '/galeria/abrir/:alias';
+// POSTS ROUTES
+// open post
+$routes['/{keyword}/{categories}/{aliasplus}'] = '/post/open/:keyword/:categories/:aliasplus';
 
-// posts
-$routes['/{categories}/{title}'] = '/post/article/:categories/:title';
-$routes['/{categories}'] = '/post/list/:categories';
+// posts by categories
+$routes['/{keyword}/{categories}'] = '/post/postsList/:keyword/:categories';
+
+// categories by KeyWord
+$routes['/{keyword}'] = '/post/categoriesList/:keyword';
+
+
+
 

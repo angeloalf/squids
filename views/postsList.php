@@ -10,7 +10,7 @@
       foreach ($posts as $article) {
           ?>
         <tr>
-            <td><a href="<?=BASE_URL?>post/article/<?=$categoryAlias?>/<?=$article['title_alias']?>"><?=$article['title'];?></a></td>
+            <td><a href="<?=BASE_URL?><?=$keywordAlias?>/<?=$categoryAlias?>/<?=$article['title_alias']?>"><?=$article['title'];?></a></td>
             <td><?=$article['views'];?></td>
         </tr>
     <?php } ?>

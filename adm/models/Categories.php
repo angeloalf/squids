@@ -17,6 +17,12 @@ class Categories extends Model {
       $sql = $this->con->query($sql);
     }
     
+    // set brands
+    public function setBrands($categoryId, $postNumber) {
+        $sql = "UPDATE categories SET brands = '$postNumber' WHERE id = '$categoryId'";
+        $sql = $this->con->query($sql);
+    }
+    
     // READ
     // get data for all categories
     public function getDataAllCategories() {

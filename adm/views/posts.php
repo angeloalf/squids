@@ -41,9 +41,9 @@
     <a href="<?=BASE_URL?>/post/setPostPage/20" class="w3-bar-item w3-button">20</a>
     <a href="<?=BASE_URL?>/post/setPostPage/30" class="w3-bar-item w3-button">30</a>
     <a href="<?=BASE_URL?>/post/setPostPage/50" class="w3-bar-item w3-button">50</a>
-    <a href="<?=BASE_URL?>/post/setPostPage/9999" class="w3-bar-item w3-button">Tudo</a> 
+    <a href="<?=BASE_URL?>/post/setPostPage/9999" class="w3-bar-item w3-button">Todos</a> 
   </div>
-  <input style="width: 35px; text-align:center" type="text" placeholder="<?=$nPosts?>">
+  <input style="width: 55px; text-align:center" type="text" placeholder="<?=$nPosts?>">
 </div>
 <br/><br/>
 <table class="w3-table-all">

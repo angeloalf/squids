@@ -44,6 +44,14 @@ class Content extends Model {
         return $sql['t'];
     }
     
+    // count all post by category Id and trash no
+    public function countAllContentByCategoryId($categoryId) {
+        $sql = "SELECT count(*) as t FROM content WHERE category_id = '$categoryId' AND trash = 'no'";
+        $sql = $this->con->query($sql);        
+        $sql = $sql->fetch(PDO::FETCH_ASSOC);
+        return $sql['t'];
+    }
+    
     // get for all post by categories
     public function getAllContentById($categoryId,$pageInitial, $nPosts) {
         $sql = "SELECT * FROM content WHERE trash = 'no' AND category_id = '$categoryId' ORDER BY created DESC LIMIT $pageInitial, $nPosts";

@@ -2,8 +2,15 @@
 
 class Content extends Model {
     
+    // UPDATE
+    // add views 
+    public function setViews($titleAlias) {
+        $sql = "UPDATE content SET views = views + 1 WHERE title_alias = ?";
+        $sql = $this->con->prepare($sql);
+        $sql->execute(array($titleAlias));
+    } 
+
     // READ
-    
     // get all posts by category_id
     public function getAllPostsByCategoryId($categoryId) {
       $sql = "SELECT * FROM content WHERE category_id = '$categoryId' AND state = 'published' AND trash = 'no'";
@@ -23,5 +30,6 @@ class Content extends Model {
       } else return array();
     }
     
+   
     
 } // end class
