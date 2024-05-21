@@ -4,14 +4,14 @@
 <table class="w3-table-all">
     <tr>
         <th>Título</th>
-        <th>Acessos</th>
+        <th class="w3-right">Acessos</th>
     </tr>  
       <?php
       foreach ($posts as $article) {
           ?>
         <tr>
             <td><a href="<?=BASE_URL?><?=$keywordAlias?>/<?=$categoryAlias?>/<?=$article['title_alias']?>"><?=$article['title'];?></a></td>
-            <td><?=$article['views'];?></td>
+            <td class="w3-right"><?=$article['views'];?></td>
         </tr>
     <?php } ?>
 </table>

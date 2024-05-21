@@ -37,9 +37,10 @@ if (isset($info)) {
     <textarea name="content" spellcheck="true">
     <?=$contentValue;?>
    </textarea>
-    <input id="seletor" name="seletor" hidden readonly"></input>
-    <br/>
+    <input id="seletor" name="seletor" hidden readonly" />
+    <br/>    
     <button class="w3-btn w3-green" type="submit">Salvar</button>
+    
     <button class="w3-btn w3-light-gray w3-border" onclick="setSeletorClose()">Salvar e Fechar</button>
     <button class="w3-btn w3-light-gray w3-border" onclick="setSeletorNew()">Salvar e Novo</button>
     <a style="margin-left: 15px;" class="w3-btn w3-red" onclick="location.href='<?=BASE_URL?>/post'">Cancelar</a>
@@ -52,7 +53,7 @@ if (isset($info)) {
     // tynymce configuration  
     tinymce.init({
       selector: 'textarea',
-      plugins: 'a11ychecker advcode casechange export formatpainter image editimage linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tableofcontents tinycomments tinymcespellchecker emoticons charmap link unlink preview  importcss codesample',
+      plugins: 'a11ychecker advcode casechange export formatpainter image imagetools editimage linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tableofcontents tinycomments tinymcespellchecker emoticons charmap link unlink preview  importcss codesample',
       toolbar: 'undo redo | bold italic underline strikethrough | align codesample |  blocks fontfamily fontsize | numlist bullist | indent outdent | emoticons charmap | link unlink | image editimage | permanentpen table tableofcontents preview',
       toolbar_mode: 'floating',
       tinycomments_mode: 'embedded',
@@ -62,9 +63,16 @@ if (isset($info)) {
       emoticons_database: 'emojiimages',
       automatic_uploads: true,
       images_upload_url: 'postAcceptor.php',
-      images_upload_credentials: false,
+      images_upload_credentials: false,      
       a11y_advanced_options: true,
       image_title: true,
+      image_dimensions: true,
+      image_class_list: [
+        {title: 'None', value: ''},
+        {title: 'Responsive', value: 'img-responsive'}                   
+       ],
+      imagetools_toolbar: 'rotateleft rotateright | flipv fliph | editimage imageoptions',
+      image_advtab: true,
       object_resizing: 'img',
       resize_img_proportional: true,     
     });

@@ -24,16 +24,16 @@ class loginController extends Controller {
         
     // index()
     public function index() { 
-        $data = array();
+        $data = array();        
         
         // create objects
         $a = new Administrators();
-        
+
         // get values of POST request (login form)
         $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
         $password = md5(filter_input(INPUT_POST, 'password', FILTER_SANITIZE_SPECIAL_CHARS));
-        $code = filter_input(INPUT_POST, 'code', FILTER_SANITIZE_SPECIAL_CHARS);
-        
+        $code = filter_input(INPUT_POST, 'code', FILTER_SANITIZE_SPECIAL_CHARS);        
+                
         // fields verification, mysql query and home page acess
         if ($email && $password && $code) {
             if ($a->login($email, $password, $code)) {

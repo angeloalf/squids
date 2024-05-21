@@ -14,8 +14,11 @@
 
 .content-addThis {
     height: 40px;    
-    //width: px;
     margin-top: 5px;
+}
+
+.content-editionButtom {
+    margin-top: -50px;
 }
 
 .content-linkBar {
@@ -24,14 +27,12 @@
   height: 35px; 
   line-height: 35px;
   background-color: #f5f5f5;
-  font-size: 12px;
+  font-size: 11px;
   border-radius: 6px;
 }
 
 .content-linkBar a {
-    //color: #006ce7;
-    color: #808080;
-    font-weight: bold; 
+    color: #006ce7;
 }
 
 .content-line {
@@ -66,6 +67,25 @@
     background-color: #0054b4; 
     color: white; 
     padding: 5px 10px 5px 10px;
+}
+
+
+//============ responsive img ===========================================================
+
+// content element 'img' HTML
+.content img {
+    max-width: 1000px;
+}
+
+.img-responsive {    
+    height: auto;      
+}
+
+@media only screen and (max-width: 480px) {
+  .img-responsive  {
+    width: 100%;
+    height: auto;
+  }
 }
 
 

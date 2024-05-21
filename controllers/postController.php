@@ -45,13 +45,14 @@ class postController extends Controller {
         $data = array();
         
         // create instances
-        $c = new Categories();
+        $c = new Categories();               
         $content = new Content();
-        $k = new KeyWord();
-        
+        $k = new Keyword();                                
+                                        
         // get keyword and category name
         $keywordName = $k->getKeyWordNameByKeyWordAlias($keywordAlias);
         $categoryName = $c->getCategoryNameByAlias($categoryAlias);
+         
                
         // verification if $categoryName exits
         if (!$keywordName || !$categoryName) {
@@ -66,7 +67,7 @@ class postController extends Controller {
         $keywordAlias = $k->getKeyWordAliasByKeyWordName($keywordName);
         
         // get all posts by category_id
-        $posts = $content->getAllPostsByCategoryId($categoryId);
+        isset($_SESSION['rlogin']) ? $posts = $content->getAllPostsByCategoryIdNoPublished($categoryId) : $posts = $content->getAllPostsByCategoryId($categoryId);
         
         // data to send
         $data['categoryName'] = $categoryName;

@@ -11,13 +11,13 @@ if (ENVIRONMENT == 'development') {
     define("USER", "root");
     define("PASS", "");
 } else {
-    define("BASE_URL", "http://www.webolista.com/system/");
+    define("BASE_URL", "https://www.squids.com.br/");
     define("TEMPLATE", "default");
-    
-    define("DBNAME", "sistemas");
+     
+    define("DBNAME", "u554754528_squids");
     define("HOST", "localhost");
-    define("USER", "root");
-    define("PASS", "");
+    define("USER", "u554754528_squids");
+    define("PASS", "8732@xexA");
 }
 global $con;
 try {

@@ -4,7 +4,8 @@
     <div class="header">
         <div class="header-logo style-general">
             <a class="header-logo" href="<?= BASE_URL; ?>"><span class="logo"><img src="<?=BASE_URL?>templates/default/assets/images/logo/squids_logo3.png" />
-                </span></a>  
+                </span></a>
+            <span style="font-size: 17px; color:#fff; vertical-align: -10px">&nbsp;Eletrônica & Robótica </span>
         </div>  
     </div>
     

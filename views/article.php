@@ -1,4 +1,12 @@
 <!-- article -->
+<?php
+// create article edition button - when logged
+if (isset($_SESSION['rlogin'])) {
+   ?>
+<a href="<?=BASE_URL?>/adm/post/edit/<?=$articleData['id']?>/<?=$articleData['title_alias']?>" class="w3-right w3-btn w3-blue content-editionButtom" target="_blank">Editar</a>
+<?php
+}
+?>
 
 <!-- header post link bar -->
 <div class="content-linkBar">
@@ -8,7 +16,7 @@
      /
      <a href="<?=BASE_URL.$keyWordAlias?>/<?=$categoryAlias?>"><?=$category?></a>
      /
-     <b><?=$title?></b>     
+     <?=$title?>   
 </div>
 
 <!-- author name and access -->

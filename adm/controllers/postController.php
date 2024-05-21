@@ -271,7 +271,7 @@ class postController extends Controller {
                header('Location: '.BASE_URL.'/post/add'); 
               die(); 
             } else {    // button save             
-               header('Location: '.BASE_URL.'/post/edit/'.$contentId.'/'.$titleAlias.'?saved=y'); 
+               header('Location: '.BASE_URL.'/post/edit/'.$contentId.'/'.$titleAlias.'?saved=y');               
                die(); 
             }
         }         

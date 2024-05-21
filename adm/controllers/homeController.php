@@ -17,7 +17,7 @@ class homeController extends Controller {
     // login verification and go to home page (__construct())
     public function __construct() {
         if (empty($_SESSION['rlogin'])) {
-            header('Location: '.BASE_URL.'/login');
+            header('Location: '.BASE_URL.'/login');            
             exit;
         }
     } // end construct()
